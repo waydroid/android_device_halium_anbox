@@ -33,6 +33,9 @@ TARGET_2ND_CPU_VARIANT := generic
 
 TARGET_USES_64_BIT_BINDER := true
 
+# APEX
+TARGET_FLATTEN_APEX := true
+
 # Platform
 TARGET_BOARD_PLATFORM := anbox
 
