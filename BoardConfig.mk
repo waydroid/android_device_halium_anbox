@@ -36,6 +36,9 @@ TARGET_USES_64_BIT_BINDER := true
 # Platform
 TARGET_BOARD_PLATFORM := anbox
 
+# Kernel
+TARGET_NO_KERNEL := true
+
 # Audio
 USE_XML_AUDIO_POLICY_CONF := 1
 
