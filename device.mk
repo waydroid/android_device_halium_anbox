@@ -32,6 +32,9 @@ PRODUCT_USE_VNDK_OVERRIDE := true
 PRODUCT_PACKAGES += \
     android.hardware.keymaster@4.0-service
 
+# Overlays
+DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
+
 # Permissions
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/handheld_core_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/handheld_core_hardware.xml
