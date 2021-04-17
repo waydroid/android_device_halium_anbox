@@ -24,6 +24,12 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.health@2.0-service.anbox
 
+# HWComposer
+PRODUCT_PACKAGES += \
+    android.hardware.graphics.composer@2.1-service \
+    android.hardware.graphics.composer@2.1-impl \
+    hwcomposer.anbox
+
 # HIDL
 PRODUCT_ENFORCE_VINTF_MANIFEST_OVERRIDE := false
 PRODUCT_USE_VNDK_OVERRIDE := true
