@@ -14,6 +14,10 @@
 # limitations under the License.
 #
 
+# Health
+PRODUCT_PACKAGES += \
+    android.hardware.health@2.0-service.anbox
+
 # HIDL
 PRODUCT_ENFORCE_VINTF_MANIFEST_OVERRIDE := false
 PRODUCT_USE_VNDK_OVERRIDE := true
