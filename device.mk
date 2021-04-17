@@ -14,6 +14,12 @@
 # limitations under the License.
 #
 
+# Gatekeeper
+PRODUCT_PACKAGES += \
+    android.hardware.gatekeeper@1.0-impl \
+    android.hardware.gatekeeper@1.0-service \
+    gatekeeper.anbox
+
 # Health
 PRODUCT_PACKAGES += \
     android.hardware.health@2.0-service.anbox
