@@ -14,6 +14,9 @@
 # limitations under the License.
 #
 
+# Properties
+-include $(LOCAL_PATH)/properties.mk
+
 # Gatekeeper
 PRODUCT_PACKAGES += \
     android.hardware.gatekeeper@1.0-impl \
