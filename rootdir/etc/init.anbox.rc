@@ -1,0 +1,3 @@
+on boot
+    mkdir /dev/input
+    chmod 777 /dev/input

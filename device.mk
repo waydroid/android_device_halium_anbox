@@ -59,6 +59,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_ENFORCE_VINTF_MANIFEST_OVERRIDE := false
 PRODUCT_USE_VNDK_OVERRIDE := true
 
+# Init
+PRODUCT_PACKAGES += \
+    init.anbox.rc
+
 # Keymaster
 PRODUCT_PACKAGES += \
     android.hardware.keymaster@4.0-service
