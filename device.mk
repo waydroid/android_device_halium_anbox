@@ -14,9 +14,6 @@
 # limitations under the License.
 #
 
-# Properties
--include $(LOCAL_PATH)/properties.mk
-
 # Audio HAL
 PRODUCT_PACKAGES += \
     android.hardware.audio@2.0-service \
@@ -102,6 +99,10 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.ipsec_tunnels.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.ipsec_tunnels.xml \
     frameworks/native/data/etc/android.software.sip.voip.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.sip.voip.xml \
     frameworks/native/data/etc/android.software.verified_boot.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.verified_boot.xml
+
+# Properties
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/anbox.prop:$(TARGET_COPY_OUT_VENDOR)/anbox.prop
 
 # Soong
 PRODUCT_SOONG_NAMESPACES += \
