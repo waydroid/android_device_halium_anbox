@@ -1,6 +1,9 @@
 # Anbox props
 import /vendor/anbox.prop
 
+# Disable ccodec
+debug.stagefright.ccodec=0
+
 # LCD Density
 ro.sf.lcd_density=420
 
