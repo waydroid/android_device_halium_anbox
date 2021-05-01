@@ -16,17 +16,12 @@
 
 # Inherit from those products. Most specific first.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_p.mk)
 
-# Inherit some common Lineage stuff
-$(call inherit-product, vendor/lineage/config/common_full_tablet_wifionly.mk)
-
-# Inherit from anbox_arm64 device
-$(call inherit-product, $(LOCAL_PATH)/device.mk)
+# Inherit from anbox device
+$(call inherit-product, $(LOCAL_PATH)/../device.mk)
 
 PRODUCT_BRAND := anbox
 PRODUCT_DEVICE := anbox_arm64
 PRODUCT_MANUFACTURER := Anbox
 PRODUCT_NAME := lineage_anbox_arm64
-PRODUCT_MODEL := Anbox Device
+PRODUCT_MODEL := Anbox arm64 Device
