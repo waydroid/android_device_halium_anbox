@@ -16,21 +16,24 @@
 
 LOCAL_PATH := $(call my-dir)
 
-ifneq ($(filter anbox_arm64,$(TARGET_DEVICE)),)
+ifneq ($(filter anbox_arm64 anbox_arm anbox_x86 anbox_x86_64,$(TARGET_DEVICE)),)
 include $(call all-makefiles-under,$(LOCAL_PATH))
 
+ifneq ($(filter anbox_arm64 anbox_arm,$(TARGET_DEVICE)),)
 EGL_SYMLINK += $(TARGET_OUT_VENDOR)/lib/egl
 $(EGL_SYMLINK): $(LOCAL_INSTALLED_MODULE)
 	@mkdir -p $(dir $@)
 	$(hide) ln -sf ../../vendor_extra/lib/egl $@
 
 ALL_DEFAULT_INSTALLED_MODULES += $(EGL_SYMLINK)
+endif
 
+ifneq ($(filter anbox_arm64,$(TARGET_DEVICE)),)
 EGL64_SYMLINK += $(TARGET_OUT_VENDOR)/lib64/egl
 $(EGL64_SYMLINK): $(LOCAL_INSTALLED_MODULE)
 	@mkdir -p $(dir $@)
 	$(hide) ln -sf ../../vendor_extra/lib64/egl $@
 
 ALL_DEFAULT_INSTALLED_MODULES += $(EGL64_SYMLINK)
-
+endif
 endif

@@ -15,9 +15,21 @@
 #
 
 PRODUCT_MAKEFILES := \
-    lineage_anbox_arm64:$(LOCAL_DIR)/anbox_arm64/lineage_anbox_arm64.mk
+    lineage_anbox_arm64:$(LOCAL_DIR)/anbox_arm64/lineage_anbox_arm64.mk \
+    lineage_anbox_arm:$(LOCAL_DIR)/anbox_arm/lineage_anbox_arm.mk \
+    lineage_anbox_x86:$(LOCAL_DIR)/anbox_x86/lineage_anbox_x86.mk \
+    lineage_anbox_x86_64:$(LOCAL_DIR)/anbox_x86_64/lineage_anbox_x86_64.mk
 
 COMMON_LUNCH_CHOICES := \
     lineage_anbox_arm64-user \
     lineage_anbox_arm64-userdebug \
-    lineage_anbox_arm64-eng
+    lineage_anbox_arm64-eng \
+    lineage_anbox_arm-user \
+    lineage_anbox_arm-userdebug \
+    lineage_anbox_arm-eng \
+    lineage_anbox_x86-user \
+    lineage_anbox_x86-userdebug \
+    lineage_anbox_x86-eng \
+    lineage_anbox_x86_64-user \
+    lineage_anbox_x86_64-userdebug \
+    lineage_anbox_x86_64-eng
