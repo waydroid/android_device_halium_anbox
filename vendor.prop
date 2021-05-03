@@ -1,6 +1,9 @@
 # Anbox props
 import /vendor/anbox.prop
 
+# Qcom perf extension_library
+import /vendor_extra/build.prop ro.vendor.extension_library
+
 # Disable ccodec
 debug.stagefright.ccodec=0
 
