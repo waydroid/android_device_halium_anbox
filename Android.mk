@@ -26,6 +26,13 @@ $(EGL_SYMLINK): $(LOCAL_INSTALLED_MODULE)
 	$(hide) ln -sf ../../vendor_extra/lib/egl $@
 
 ALL_DEFAULT_INSTALLED_MODULES += $(EGL_SYMLINK)
+
+MTKOMXCORE_SYMLINK += $(TARGET_OUT_VENDOR)/etc/mtk_omx_core.cfg
+$(MTKOMXCORE_SYMLINK): $(LOCAL_INSTALLED_MODULE)
+	@mkdir -p $(dir $@)
+	$(hide) ln -sf ../../vendor_extra/etc/mtk_omx_core.cfg $@
+
+ALL_DEFAULT_INSTALLED_MODULES += $(MTKOMXCORE_SYMLINK)
 endif
 
 ifneq ($(filter anbox_arm64,$(TARGET_DEVICE)),)
