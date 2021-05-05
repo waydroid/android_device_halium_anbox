@@ -32,7 +32,8 @@ PRODUCT_PACKAGES += \
     audio.a2dp.default \
     libasound_module_pcm_pulse \
     libasound_module_ctl_pulse \
-    libasound_module_conf_pulse
+    libasound_module_conf_pulse \
+    android.hardware.light@2.0-service.anbox
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
