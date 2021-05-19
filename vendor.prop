@@ -1,6 +1,9 @@
 # Anbox props
 import /vendor/anbox.prop
 
+# Audio
+af.thread.throttle=false
+
 # Qcom perf extension_library
 import /vendor_extra/build.prop ro.vendor.extension_library
 
