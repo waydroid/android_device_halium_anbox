@@ -62,3 +62,6 @@ BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
 # Sepolicy
 BOARD_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor
 SELINUX_IGNORE_NEVERALLOWS := true
+
+# Disable scudo
+MALLOC_SVELTE := true
