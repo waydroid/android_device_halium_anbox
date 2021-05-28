@@ -1,14 +1,12 @@
 # Anbox props
 import /vendor/anbox.prop
 
+# Media UBWC
+import /vendor_extra/build.prop vendor.gralloc.disable_ubwc
+
 # Audio
 af.thread.throttle=false
-
-# Qcom perf extension_library
-import /vendor_extra/build.prop ro.vendor.extension_library
-
-# LCD Density
-ro.sf.lcd_density=420
+audio.deep_buffer.media=true
 
 # Provides overrides to configure the Dalvik heap for a 4GB phone
 dalvik.vm.heapstartsize=8m
@@ -25,3 +23,6 @@ ro.surface_flinger.vsync_event_phase_offset_ns=2000000
 ro.surface_flinger.vsync_sf_event_phase_offset_ns=6000000
 debug.sf.latch_unsignaled=1
 debug.sf.disable_backpressure=1
+
+# Disable RescueParty
+persist.sys.disable_rescue=true
