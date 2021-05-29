@@ -37,6 +37,7 @@ USE_XML_AUDIO_POLICY_CONF := 1
 TARGET_NO_BOOTLOADER := true
 
 # Display
+BOARD_GPU_DRIVERS := all
 TARGET_USES_HWC2 := true
 
 # Filesystem
