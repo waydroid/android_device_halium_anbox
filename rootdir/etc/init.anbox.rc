@@ -3,4 +3,6 @@ on boot
     chmod 777 /dev/input
 
 on property:sys.boot_completed=1
-    chmod 0777 /dev/input/wayland_events
+    chmod 0777 /dev/input/wl_touch_events
+    chmod 0777 /dev/input/wl_keyboard_events
+    chmod 0777 /dev/input/wl_pointer_events
