@@ -146,6 +146,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     RemovePackages
 
+# Sensors
+PRODUCT_PACKAGES += \
+    android.hardware.sensors@1.0-service.anbox
+
 # Soong
 PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH)
