@@ -138,6 +138,10 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.vulkan.version-1_1.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.version-1_0_3.xml \
     frameworks/native/data/etc/android.hardware.vulkan.compute-0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.compute-0.xml
 
+# Power
+PRODUCT_PACKAGES += \
+    android.hardware.power@1.0-service.anbox
+
 # Properties
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/anbox.prop:$(TARGET_COPY_OUT_VENDOR)/anbox.prop
