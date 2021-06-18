@@ -98,6 +98,13 @@ PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_telephony.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video.xml
 
+# Media - Stagefright FFMPEG plugin
+ifneq ($(filter %_anbox_x86 %_anbox_x86_64,$(TARGET_PRODUCT)),)
+PRODUCT_PACKAGES += \
+    libffmpeg_omx \
+    media_codecs_ffmpeg.xml
+endif
+
 # Memtrack
 PRODUCT_PACKAGES += \
     android.hardware.memtrack@1.0-impl \
