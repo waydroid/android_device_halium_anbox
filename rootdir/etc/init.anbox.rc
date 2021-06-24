@@ -1,5 +1,4 @@
 on boot
-    mkdir /dev/input
     chmod 777 /dev/input
 
     # Allow to access WebView
