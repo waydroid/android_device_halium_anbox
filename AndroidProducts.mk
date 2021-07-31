@@ -62,7 +62,3 @@ COMMON_LUNCH_CHOICES := \
     bliss_anbox_x86_64-eng
     
 endif
-
-
-
-
