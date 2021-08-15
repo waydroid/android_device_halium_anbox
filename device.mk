@@ -25,6 +25,9 @@ $(call inherit-product-if-exists, vendor/bliss/config/common_full_tablet_wifionl
 # Inherit BoringdroidSystemUI
 $(call inherit-product-if-exists, vendor/boringdroid/boringdroid.mk)
 
+# foss apps
+$(call inherit-product-if-exists, vendor/foss/foss.mk)
+
 # Audio HAL
 PRODUCT_PACKAGES += \
     android.hardware.audio@2.0-service \
