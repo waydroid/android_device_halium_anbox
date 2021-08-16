@@ -31,7 +31,6 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <stdbool.h>
 #include <assert.h>
 #include <unistd.h>
@@ -55,12 +54,29 @@
 
 #define ATRACE_TAG ATRACE_TAG_GRAPHICS
 #include <cutils/trace.h>
+#include <cutils/properties.h>
+#include <utils/String16.h>
+#include <utils/String8.h>
 
 #include <wayland-client.h>
 #include <wayland-android-client-protocol.h>
 #include "linux-dmabuf-unstable-v1-client-protocol.h"
 #include "presentation-time-client-protocol.h"
 #include "xdg-shell-client-protocol.h"
+
+#include <binder/IBinder.h>
+#include <binder/IServiceManager.h>
+#include <android/app/IActivityTaskManager.h>
+#include <lineageos/waydroid/IPlatform.h>
+
+using ::android::app::IActivityTaskManager;
+using ::lineageos::waydroid::IPlatform;
+
+using ::android::IBinder;
+using ::android::IServiceManager;
+using ::android::OK;
+using ::android::sp;
+using ::android::status_t;
 
 struct buffer;
 
@@ -228,6 +244,55 @@ static const struct xdg_surface_listener xdg_surface_listener = {
     xdg_surface_handle_configure,
 };
 
+static void
+xdg_toplevel_handle_configure(void *data, struct xdg_toplevel *,
+                              int32_t width, int32_t height,
+                              struct wl_array *)
+{
+    struct window *window = (struct window *)data;
+
+    if (! window->display->isWinResSet) {
+        if (window->display->scale > 1) {
+            width *= window->display->scale;
+            height *= window->display->scale;
+        }
+        property_set("persist.anbox.window_width", std::to_string(width).c_str());
+        property_set("persist.anbox.window_height", std::to_string(height).c_str());
+
+        window->display->isWinResSet = true;
+    }
+}
+
+static void
+xdg_toplevel_handle_close(void *data, struct xdg_toplevel *)
+{
+    struct window *window = (struct window *)data;
+
+    static sp<IActivityTaskManager> mActivityTaskManager;
+    if (mActivityTaskManager == nullptr) {
+        sp<IServiceManager> sm = android::defaultServiceManager();
+        sp<IBinder> binderTask = sm->getService(android::String16("activity_task"));
+        if (binderTask != nullptr)
+            mActivityTaskManager = android::interface_cast<IActivityTaskManager>(binderTask);
+    }
+    if (mActivityTaskManager != nullptr) {
+        if (window->taskID != "none") {
+            if (window->taskID == "0") {
+                property_set("anbox.active_apps", "none");
+                mActivityTaskManager->removeAllVisibleRecentTasks();
+            } else {
+                bool ret;
+                mActivityTaskManager->removeTask(stoi(window->taskID), &ret);
+            }
+        }
+    }
+}
+
+static const struct xdg_toplevel_listener xdg_toplevel_listener = {
+    xdg_toplevel_handle_configure,
+    xdg_toplevel_handle_close,
+};
+
 void
 destroy_window(struct window *window)
 {
@@ -247,7 +312,7 @@ destroy_window(struct window *window)
 }
 
 struct window *
-create_window(struct display *display, bool with_dummy)
+create_window(struct display *display, bool with_dummy, std::string appID, std::string taskID)
 {
     struct window *window = new struct window();
     if (!window)
@@ -256,6 +321,7 @@ create_window(struct display *display, bool with_dummy)
     window->callback = NULL;
     window->display = display;
     window->surface = wl_compositor_create_surface(display->compositor);
+    window->taskID = taskID;
 
     if (display->wm_base) {
         window->xdg_surface =
@@ -267,8 +333,21 @@ create_window(struct display *display, bool with_dummy)
 
         window->xdg_toplevel = xdg_surface_get_toplevel(window->xdg_surface);
         assert(window->xdg_toplevel);
+        xdg_toplevel_add_listener(window->xdg_toplevel, &xdg_toplevel_listener, window);
         xdg_toplevel_set_maximized(window->xdg_toplevel);
-        xdg_toplevel_set_title(window->xdg_toplevel, "Anbox");
+        static sp<IPlatform> mPlatform;
+        if (mPlatform == nullptr) {
+            sp<IServiceManager> sm = android::defaultServiceManager();
+            sp<IBinder> binderPlatform = sm->getService(android::String16("waydroidplatform"));
+            if (binderPlatform != nullptr)
+                mPlatform = android::interface_cast<IPlatform>(binderPlatform);
+        }
+        android::String16 AppName = android::String16(appID.c_str());
+        if (mPlatform != nullptr)
+            mPlatform->getAppName(android::String16(appID.c_str()), &AppName);
+        android::String8 AppName8 = android::String8(AppName);
+        xdg_toplevel_set_title(window->xdg_toplevel, AppName8.string());
+        xdg_toplevel_set_app_id(window->xdg_toplevel, appID.c_str());
         wl_surface_commit(window->surface);
 
         /* Here we retrieve objects if executed without immed, or error */
@@ -841,6 +920,7 @@ output_handle_scale(void *data, struct wl_output *,
     struct display *d = (struct display*)data;
 
     d->scale = scale;
+    property_set("anbox.display_scale", std::to_string(scale).c_str());
 }
 
 static const struct wl_output_listener output_listener = {

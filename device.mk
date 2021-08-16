@@ -18,8 +18,15 @@
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_p.mk)
 
-# Inherit some common Lineage stuff
-$(call inherit-product, vendor/lineage/config/common_full_tablet_wifionly.mk)
+# Inherit some common ROM stuff
+$(call inherit-product-if-exists, vendor/lineage/config/common_full_tablet_wifionly.mk)
+$(call inherit-product-if-exists, vendor/bliss/config/common_full_tablet_wifionly.mk)
+
+# Inherit BoringdroidSystemUI
+$(call inherit-product-if-exists, vendor/boringdroid/boringdroid.mk)
+
+# foss apps
+$(call inherit-product-if-exists, vendor/foss/foss.mk)
 
 # Audio HAL
 PRODUCT_PACKAGES += \
@@ -48,7 +55,7 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.allocator@2.0-impl \
     android.hardware.graphics.allocator@2.0-service \
     android.hardware.graphics.composer@2.1-impl \
-    android.hardware.graphics.composer@2.1-service \
+    android.hardware.graphics.composer@2.1-service.anbox \
     android.hardware.graphics.mapper@2.0-impl-2.1 \
     gralloc.gbm \
     hwcomposer.anbox \

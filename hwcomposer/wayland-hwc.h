@@ -112,6 +112,8 @@ struct display {
     std::map<uint32_t, struct handleExt> layer_handles_ext;
     struct handleExt target_layer_handle_ext;
     std::map<buffer_handle_t, struct buffer *> buffer_map;
+
+    bool isWinResSet;
 };
 
 struct buffer {
@@ -137,6 +139,7 @@ struct window {
     std::map<size_t, struct wl_subsurface *> subsurfaces;
     struct wl_callback *callback;
     int lastLayer;
+    std::string taskID;
 };
 
 int
@@ -157,4 +160,4 @@ destroy_display(struct display *display);
 void
 destroy_window(struct window *window);
 struct window *
-create_window(struct display *display, bool with_dummy);
+create_window(struct display *display, bool with_dummy, std::string appID, std::string taskID);
